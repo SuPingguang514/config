@@ -1,0 +1,85 @@
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { '~/.vim/bundle': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tomasr/molokai'
+Plug 'itchyny/lightline.vim'
+Plug 'MattesGroeger/vim-bookmarks'
+call plug#end()
+filetype plugin indent on
+
+set title titlestring=%f titleold= " set title of the window
+set nu
+set tabstop=4                      " number of spaces that a Tab counts for
+set expandtab                      " expand Tab to spaces
+set autoindent                     " copy indent when starting a new line
+set cindent                        " automatic C program indenting
+set shiftwidth=4                   " width for shifting
+set incsearch                      " show the match while typing
+set noswapfile
+set backspace=2
+set hlsearch
+set cursorcolumn
+set cursorline
+set ambiwidth=double
+syntax on
+set re=0
+set redrawtime=10000
+
+let mapleader = ","  " map leader键设置
+let g:mapleader = ","
+
+" bookmarks
+let g:bookmark_no_default_key_mappings = 1
+let g:bookmark_show_warning = 0
+nmap <Leader><Leader> :BookmarkToggle<CR>
+nmap <Leader>i :BookmarkAnnotate<CR>
+nmap <Leader>a :BookmarkShowAll<CR>
+nmap <Leader>j :BookmarkNext<CR>
+nmap <Leader>k :BookmarkPrev<CR>
+nmap <Leader>kk :BookmarkMoveUp<CR>
+nmap <Leader>jj :BookmarkMoveDown<CR>
+nmap <Leader>g :BookmarkMoveToLine<CR>
+
+" fzf
+nmap <C-p> :Files /local/gsnws/sgsn_mme<CR>
+nmap <C-e> :Buffers<CR>
+
+" colorscheme
+colorscheme  molokai  
+
+set t_Co=256
+set background=dark
+
+" lightline
+set laststatus=2
+let g:lightline = { 'colorscheme': 'powerline', }
+
+" cscope
+if has("cscope")
+    set csto=0
+    set cst
+    set nocsverb
+    if filereadable("cscope.out")
+        cs add cscope.out
+    elseif $CSCOPE_DB != "/local/gsnws/sgsn_mme"
+        cs add $CSCOPE_DB
+    endif
+
+    set cscopetag   " support for Ctrl+] and Ctrl+t
+
+  " check cscope for definition of a symbol before checking ctags:
+  " set to 1 if you want the reverse search order.
+"  set csto=0
+
+  " show msg when any other cscope db added
+  set cscopeverbose
+
+  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
+  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
+  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
+  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
+  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
+  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
+  nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+e
